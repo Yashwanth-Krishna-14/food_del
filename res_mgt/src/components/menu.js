@@ -18,6 +18,7 @@ const Menu = ({ addToCart, removeFromCart, cart, getItemCount }) => {
 
   return (
     <div>
+      <div className='m-7'>
       <h1>Menu</h1>
       <input
         type="text"
@@ -29,6 +30,9 @@ const Menu = ({ addToCart, removeFromCart, cart, getItemCount }) => {
         <option value="name">Sort by Name</option>
         <option value="price">Sort by Price</option>
       </select>
+
+      </div>
+     
       <div className="menu">
         {filteredItems.map(item => (
           <MenuItem

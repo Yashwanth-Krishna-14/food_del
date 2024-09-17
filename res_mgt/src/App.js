@@ -6,12 +6,16 @@ import Navbar from './components/navbar';
 import LandingPage from './components/landingPage';
 import AuthPage from './components/authPage';
 import Footer from './components/footer';
+import Modal from './components/modal';
 
 const App = () => {
   const [cart, setCart] = useState(() => {
     const savedCart = localStorage.getItem('cart');
     return savedCart ? JSON.parse(savedCart) : [];
   });
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLogin, setIsLogin] = useState(true);
 
   useEffect(() => {
     localStorage.setItem('cart', JSON.stringify(cart));
@@ -52,17 +56,28 @@ const App = () => {
     return cartItem ? cartItem.count : 0;
   };
 
-  return (
+  const openModal = (login) => {
+    setIsLogin(login);
+    setIsModalOpen(true);
+  };
 
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  return (
+   
       <div className="app">
-        <Navbar cartCount={cart.reduce((total, item) => total + item.count, 0)} />
+        <Navbar cartCount={cart.reduce((total, item) => total + item.count, 0)} openModal={openModal} />
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/menu" element={<Menu addToCart={addToCart} removeFromCart={removeFromCart} cart={cart} getItemCount={getItemCount} />} />
           <Route path="/cart" element={<Cart cart={cart} addToCart={addToCart} removeFromCart={removeFromCart} getSubtotal={getSubtotal} />} />
-          <Route path="/auth" element={<AuthPage />} />
         </Routes>
-        <Footer></Footer>
+        <Footer />
+        <Modal isOpen={isModalOpen} onClose={closeModal}>
+          <AuthPage isLogin={isLogin} onClose={closeModal} />
+        </Modal>
       </div>
    
   );
