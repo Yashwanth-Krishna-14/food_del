@@ -1,3 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
 body {
     font-family: Arial, sans-serif;
     background-color: #FAF0E6;
@@ -48,7 +53,15 @@ body {
   
   .video-container {
     margin: 2rem 0;
+   
   }
+
+
+  .rounded-video {
+    border-radius: 10px; /* Adjust the radius as needed */
+    overflow: hidden;
+  }
+
   .landing-page button:hover {
     background-color: #FF7F50;
   }
