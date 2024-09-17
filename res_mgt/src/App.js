@@ -5,6 +5,7 @@ import Cart from './components/cart';
 import Navbar from './components/navbar';
 import LandingPage from './components/landingPage';
 import AuthPage from './components/authPage';
+import Footer from './components/footer';
 
 const App = () => {
   const [cart, setCart] = useState(() => {
@@ -61,6 +62,7 @@ const App = () => {
           <Route path="/cart" element={<Cart cart={cart} addToCart={addToCart} removeFromCart={removeFromCart} getSubtotal={getSubtotal} />} />
           <Route path="/auth" element={<AuthPage />} />
         </Routes>
+        <Footer></Footer>
       </div>
    
   );
