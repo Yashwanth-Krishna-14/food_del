@@ -17,23 +17,24 @@ const Menu = ({ addToCart, removeFromCart, cart, getItemCount }) => {
     .sort((a, b) => (sort === 'name' ? a.name.localeCompare(b.name) : a.price - b.price));
 
   return (
-    <div>
-      <div className='m-7'>
-      <h1>Menu</h1>
+    <div className="p-6">
+      <h1 className="text-3xl font-bold mb-4">Menu</h1>
       <input
         type="text"
         placeholder="Filter by name"
         value={filter}
         onChange={(e) => setFilter(e.target.value)}
+        className="w-full p-2 mb-4 border border-gray-300 rounded"
       />
-      <select value={sort} onChange={(e) => setSort(e.target.value)}>
+      <select
+        value={sort}
+        onChange={(e) => setSort(e.target.value)}
+        className="w-full p-2 mb-4 border border-gray-300 rounded"
+      >
         <option value="name">Sort by Name</option>
         <option value="price">Sort by Price</option>
       </select>
-
-      </div>
-     
-      <div className="menu">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {filteredItems.map(item => (
           <MenuItem
             key={item.id}
