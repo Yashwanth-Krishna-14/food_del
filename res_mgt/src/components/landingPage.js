@@ -9,8 +9,8 @@ const LandingPage = () => {
     <div className="font-sans">
       {/* Hero Section */}
       <div className="hero-section bg-gradient-to-r from-yellow-400 via-red-500 to-orange-500 text-white p-10 text-center">
-        <h1 className="text-5xl font-bold">Welcome to Our Food Delivery App</h1>
-        <p className="mt-4 text-xl">Discover our amazing products and services.</p>
+        <h1 className="text-5xl font-bold">Welcome to <span class="fancy-font">Burger Kween</span> </h1>
+        <p className="mt-4 text-xl">Discover our amazing combos.</p>
         <button className="mt-6 px-6 py-3 bg-white text-red-500 rounded-lg shadow-lg hover:bg-gray-200 transition duration-300">Order Now</button>
       </div>
 
