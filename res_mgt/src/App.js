@@ -7,6 +7,7 @@ import LandingPage from './components/landingPage';
 import AuthPage from './components/authPage';
 import Footer from './components/footer';
 import Modal from './components/modal';
+import LocationComponent from './components/location';
 
 const App = () => {
   const [cart, setCart] = useState(() => {
@@ -74,6 +75,7 @@ const App = () => {
           <Route path="/menu" element={<Menu addToCart={addToCart} removeFromCart={removeFromCart} cart={cart} getItemCount={getItemCount} />} />
           <Route path="/cart" element={<Cart cart={cart} addToCart={addToCart} removeFromCart={removeFromCart} getSubtotal={getSubtotal} />} />
         </Routes>
+        <LocationComponent />
         <Footer />
         <Modal isOpen={isModalOpen} onClose={closeModal}>
           <AuthPage isLogin={isLogin} onClose={closeModal} />
