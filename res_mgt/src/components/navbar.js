@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { FaHome, FaUtensils, FaSignInAlt, FaShoppingCart } from 'react-icons/fa';
+import { FaHome, FaUtensils, FaSignInAlt, FaShoppingCart, FaUser } from 'react-icons/fa';
 import AddressModal from './addressModal'; // Import the AddressModal component
 
 const Navbar = ({ cartCount, openModal }) => {
@@ -48,7 +48,7 @@ const Navbar = ({ cartCount, openModal }) => {
         </Link>
       </div>
       <div className="flex items-center space-x-4">
-      <div className="flex items-center space-x-2">
+        <div className="flex items-center space-x-2">
           <span className="text-white">{option === 'dine-in' ? 'Dine-In' : 'Takeaway'}</span>
           <label className="switch">
             <input type="checkbox" checked={option === 'takeaway'} onChange={toggleOption} />
@@ -71,7 +71,14 @@ const Navbar = ({ cartCount, openModal }) => {
           <FaShoppingCart />
           <span>Cart ({cartCount})</span>
         </Link>
-        
+        <Link
+          to="/profile"
+          className={`text-white flex items-center space-x-2 ${location.pathname === '/profile' ? 'font-bold' : ''}`}
+          aria-label="Profile"
+        >
+          <FaUser />
+          <span>Profile</span>
+        </Link>
         <div className="flex items-center space-x-2">
           <input
             type="text"
