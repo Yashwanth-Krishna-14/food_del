@@ -10,6 +10,8 @@ const usePagination = (data, itemsPerPage) => {
   );
 
   return { currentData, currentPage, totalPages, setCurrentPage };
+
 };
 
 export default usePagination;
+/* ndenkdkemkdmmdw */
