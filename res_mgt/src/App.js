@@ -7,7 +7,7 @@ import LandingPage from './components/landingPage';
 import AuthPage from './components/authPage';
 import Footer from './components/footer';
 import Modal from './components/modal';
-import LocationComponent from './components/location';
+
 import UserProfile from './components/userProfile';
 
 const App = () => {
@@ -77,7 +77,7 @@ const App = () => {
           <Route path="/cart" element={<Cart cart={cart} addToCart={addToCart} removeFromCart={removeFromCart} getSubtotal={getSubtotal} />} />
           <Route path="/profile" component={UserProfile} /> 
         </Routes>
-        <LocationComponent />
+      
         <Footer />
         <Modal isOpen={isModalOpen} onClose={closeModal}>
           <AuthPage isLogin={isLogin} onClose={closeModal} />

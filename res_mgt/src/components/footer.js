@@ -1,10 +1,12 @@
 import React from 'react';
+import { FaFacebook, FaTwitter, FaInstagram } from 'react-icons/fa';
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-800 text-white py-8 m-5 mt-17">
+    <footer className="bg-gray-800 text-white py-8 m-auto mt-auto">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {/* Quick Links */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
           <div>
             <h3 className="text-lg font-bold mb-4">About BK</h3>
             <ul>
@@ -30,13 +32,20 @@ const Footer = () => {
             </ul>
           </div>
         </div>
+
+        {/* Social Media Links */}
+        <div className="flex justify-center space-x-4 mb-8">
+          <a href="#" aria-label="Facebook"><FaFacebook /></a>
+          <a href="#" aria-label="Twitter"><FaTwitter /></a>
+          <a href="#" aria-label="Instagram"><FaInstagram /></a>
+        </div>
+
+        {/* Legal Information */}
         <div className="mt-8 text-center">
           <p>TM & © 2024 BURGER KWEEN CORPORATION. All Rights Reserved.</p>
-          <div className="flex justify-center mt-4">
-            <a href="#" className="mx-2"><img src="path/to/app-store-icon.png" alt="App Store" className="h-8" /></a>
-            <a href="#" className="mx-2"><img src="path/to/google-play-icon.png" alt="Google Play" className="h-8" /></a>
-          </div>
+          <p>Terms of Service | Privacy Policy</p> {/* Add links as necessary */}
         </div>
+
       </div>
     </footer>
   );
