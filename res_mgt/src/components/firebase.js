@@ -22,3 +22,37 @@ const auth = getAuth(app); // Initialize Authentication
 const db = getFirestore(app); // Initialize Firestore
 
 export { app, analytics, auth, db }; // Export the initialized services for use in your app
+
+
+
+
+// Export the initialized services for use in your app
+/* 
+onst addMultipleDocuments = async () => {
+  const batch = writeBatch(db);
+  const collectionRef = collection(db, 'your-collection-name'); // Specify your collection name
+
+  // Data array containing documents to be added
+  const dataArray = [
+    { name: "John", role: "Teacher" },
+    { name: "Jane", role: "Artist" },
+    { name: "Bob", role: "Gym Instructor" }
+  ];
+
+  // Loop through data and add each document to the batch
+  dataArray.forEach(data => {
+    const docRef = collectionRef.doc(); // Create a new document reference with a unique ID
+    batch.set(docRef, data); // Add the data to the batch
+  });
+
+  // Commit the batch write operation
+  try {
+    await batch.commit();
+    console.log("Batch write operation completed successfully");
+  } catch (error) {
+    console.error("Batch write operation failed: ", error);
+  }
+};
+
+// Call the function to execute the batch write
+addMultipleDocuments(); */
