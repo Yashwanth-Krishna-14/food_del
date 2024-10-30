@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { FaHome, FaUtensils, FaSignInAlt, FaShoppingCart, FaUser, FaSignOutAlt } from 'react-icons/fa';
 import AddressModal from './addressModal'; // Import the AddressModal component
-import logo from '../assets/logo.png'; // Adjust the path as needed
+import logo from '../assets/ck burger.webp'; // Adjust the path as needed
 import { auth } from './firebase'; // Import Firebase auth
 import { signOut } from 'firebase/auth';
 
@@ -52,6 +52,12 @@ const Navbar = ({ cartCount, openModal, user }) => {
             <FaHome />
             <span>Home</span>
           </Link>
+    
+        </div>
+      </div>
+      <div className="flex items-center space-x-4">
+        <div className="flex items-center space-x-2">
+         {/*  <span className="text-white">{option === 'dine-in' ? 'Dine-In' : 'Takeaway'}</span> */}
           <Link
             to="/menu"
             className={`text-white flex items-center space-x-2 ${location.pathname === '/menu' ? 'font-bold' : ''}`}
@@ -60,16 +66,28 @@ const Navbar = ({ cartCount, openModal, user }) => {
             <FaUtensils />
             <span>Menu</span>
           </Link>
-        </div>
-      </div>
-      <div className="flex items-center space-x-4">
-        <div className="flex items-center space-x-2">
-          <span className="text-white">{option === 'dine-in' ? 'Dine-In' : 'Takeaway'}</span>
-          <label className="switch" aria-label={`Switch to ${option === 'dine-in' ? 'takeaway' : 'dine-in'}`}>
+          {/* <label className="switch" aria-label={`Switch to ${option === 'dine-in' ? 'takeaway' : 'dine-in'}`}>
             <input type="checkbox" checked={option === 'takeaway'} onChange={toggleOption} />
             <span className="slider round"></span>
-          </label>
+          </label> */}
         </div>
+       
+        <Link
+          to="/cart"
+          className={`text-white flex items-center space-x-2 ${location.pathname === '/cart' ? 'font-bold' : ''}`}
+          aria-label="Cart"
+        >
+          <FaShoppingCart />
+          <span>Cart ({cartCount})</span>
+        </Link>
+        <Link
+          to="/profile"
+          className={`text-white flex items-center space-x-2 ${location.pathname === '/profile' ? 'font-bold' : ''}`}
+          aria-label="Profile"
+        >
+          <FaUser />
+          <span>Profile</span>
+        </Link>
         {user ? (
           <>
             <button 
@@ -91,39 +109,9 @@ const Navbar = ({ cartCount, openModal, user }) => {
             <span>Login</span>
           </button>
         )}
-        <Link
-          to="/cart"
-          className={`text-white flex items-center space-x-2 ${location.pathname === '/cart' ? 'font-bold' : ''}`}
-          aria-label="Cart"
-        >
-          <FaShoppingCart />
-          <span>Cart ({cartCount})</span>
-        </Link>
-        <Link
-          to="/profile"
-          className={`text-white flex items-center space-x-2 ${location.pathname === '/profile' ? 'font-bold' : ''}`}
-          aria-label="Profile"
-        >
-          <FaUser />
-          <span>Profile</span>
-        </Link>
 
         {/* Address Input */}
-        <div className="flex items-center space-x-2">
-          <input
-            type="text"
-            value={address}
-            readOnly
-            className="bg-gray-700 text-white px-2 py-1 rounded cursor-pointer hover:bg-gray-600 transition duration-300"
-            onClick={openAddressModal}
-            aria-label="Address"
-          />
-          {/* Edit Address Button */}
-          <button onClick={openAddressModal} className="text-white flex items-center space-x-2" aria-label="Edit Address">
-            <span>Edit</span>
-          </button>
-        </div>
-      </div>
+</div>
 
       {/* Confirmation Dialog for Logout */}
       {showLogoutWarning && (

@@ -1,10 +1,9 @@
-// src/firebase.js
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics"; // Optional: Only if you want to use Analytics
-import { getAuth } from "firebase/auth"; // For authentication
-import { getFirestore } from "firebase/firestore"; // For Firestore database
+import { getAnalytics } from "firebase/analytics";
+import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
+import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
-// Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyAK9_JhIKeusAiDDAS1CphtX10arT5wrBo",
   authDomain: "resmgt-68bc6.firebaseapp.com",
@@ -15,44 +14,34 @@ const firebaseConfig = {
   measurementId: "G-9WBXF2KDFG"
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app); // Optional: Initialize Analytics
-const auth = getAuth(app); // Initialize Authentication
-const db = getFirestore(app); // Initialize Firestore
+const analytics = getAnalytics(app);
+const auth = getAuth(app);
+const db = getFirestore(app);
+const storage = getStorage(app);
 
-export { app, analytics, auth, db }; // Export the initialized services for use in your app
+export const uploadImage = async (file) => {
+  const storageRef = ref(storage, `images/${file.name}`);
+  
+  const uploadTask = uploadBytesResumable(storageRef, file);
 
-
-
-
-// Export the initialized services for use in your app
-/* 
-onst addMultipleDocuments = async () => {
-  const batch = writeBatch(db);
-  const collectionRef = collection(db, 'your-collection-name'); // Specify your collection name
-
-  // Data array containing documents to be added
-  const dataArray = [
-    { name: "John", role: "Teacher" },
-    { name: "Jane", role: "Artist" },
-    { name: "Bob", role: "Gym Instructor" }
-  ];
-
-  // Loop through data and add each document to the batch
-  dataArray.forEach(data => {
-    const docRef = collectionRef.doc(); // Create a new document reference with a unique ID
-    batch.set(docRef, data); // Add the data to the batch
+  return new Promise((resolve, reject) => {
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log('Upload is ' + progress + '% done');
+      },
+      (error) => {
+        console.error('Upload failed:', error);
+        reject(error);
+      },
+      async () => {
+        const url = await getDownloadURL(uploadTask.snapshot.ref);
+        resolve(url);
+      }
+    );
   });
-
-  // Commit the batch write operation
-  try {
-    await batch.commit();
-    console.log("Batch write operation completed successfully");
-  } catch (error) {
-    console.error("Batch write operation failed: ", error);
-  }
 };
 
-// Call the function to execute the batch write
-addMultipleDocuments(); */
+export { app, analytics, auth, db };

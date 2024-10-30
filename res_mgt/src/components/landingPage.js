@@ -5,7 +5,11 @@ import exploreImage from "../assets/explore.png";
 import PromoBanner from './banner';
 import Navbar from './navbar';
 
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
+
 const LandingPage = () => {
+  const navigate = useNavigate(); // Initialize useNavigate
+
   return (
     <div className="font-sans">
       {/* Hero Section */}
@@ -14,7 +18,7 @@ const LandingPage = () => {
         <p className="mt-4 text-xl">Discover our amazing combos.</p>
         <button 
           className="mt-6 px-6 py-3 bg-white text-red-500 rounded-lg shadow-lg hover:bg-gray-200 transition duration-300"
-          onClick={() => console.log('Navigating to order page')} // Replace with actual navigation logic
+          onClick={() => navigate('/menu')} // Navigate to Menu on click
         >
           Order Now
         </button>
@@ -43,19 +47,6 @@ const LandingPage = () => {
       <div className="mt-6">
         <PromoBanner />
       </div>
-
-      {/* Categories */}
-      <div className="categories-section p-6 bg-white">
-        <h2 className="text-3xl font-bold text-gray-800 text-center">Browse by Categories</h2>
-        <div className="flex flex-wrap justify-center mt-4">
-          {["Burgers", "Pizzas", "Drinks", "Desserts"].map((category) => (
-            <CategoryItem key={category} category={category} />
-          ))}
-        </div>
-      </div>
-
-      {/* Footer */}
-     
     </div>
   );
 };
@@ -69,7 +60,7 @@ const FeaturedItem = ({ image, title, description }) => (
   </div>
 );
 
-// Category Item Component
+// Category Item Component (if needed in future)
 const CategoryItem = ({ category }) => (
   <div className="category-item w-full md:w-1/4 p-4">
     <div className="bg-gray-100 p-6 rounded-lg shadow-md hover:bg-gray-200 transition duration-300 transform hover:scale-105 flex items-center justify-center">

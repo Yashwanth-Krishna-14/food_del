@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { db } from './firebase'; // Import your firebase config
 import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { FaUser, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa'; // Import icons
 
 const UserProfile = ({ user, onClose }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -77,20 +78,30 @@ const UserProfile = ({ user, onClose }) => {
   if (loading) return <p>Loading...</p>;
 
   return (
-    <div className="bg-white shadow-md rounded-lg p-6">
-      <h2 className="text-2xl font-bold mb-4">User Profile</h2>
+    <div className="bg-white shadow-lg rounded-lg p-6 max-w-md mx-auto border border-gray-300 my-8"> {/* Added margin for spacing */}
+      <h2 className="text-2xl font-bold mb-4 text-center">User Profile</h2>
       
-      {errorMessage && <p className="text-red-500">{errorMessage}</p>}
-      {successMessage && <p className="text-green-500">{successMessage}</p>}
+      {errorMessage && <p className="text-red-500" role="alert">{errorMessage}</p>}
+      {successMessage && <p className="text-green-500" role="alert">{successMessage}</p>}
       
       {!isEditing ? (
         <>
-          <p><strong>Name:</strong> {name}</p>
-          <p><strong>Email:</strong> {email}</p>
-          <p><strong>Address:</strong> {address || 'Not provided'}</p>
+          <div className="flex items-center font-size: 1.125rem mb-3">
+            <FaUser className="text-gray-600 mr-2" />
+            <span><strong>Name:</strong> {name}</span>
+          </div>
+          <div className="flex items-center mb-3">
+            <FaEnvelope className="text-gray-600 mr-2" />
+            <span><strong>Email:</strong> {email}</span>
+          </div>
+          <div className="flex items-center mb-4">
+            <FaMapMarkerAlt className="text-gray-600 mr-2" />
+            <span><strong>Address:</strong> {address || 'Not provided'}</span>
+          </div>
           <button 
             onClick={() => setIsEditing(true)} 
-            className="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition duration-300"
+            className="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition duration-300 w-full"
+            aria-label="Edit profile"
           >
             Edit Profile
           </button>
@@ -132,13 +143,15 @@ const UserProfile = ({ user, onClose }) => {
           <button 
             onClick={handleSave} 
             disabled={loading}
-            className={`mt-4 ${loading ? 'bg-gray-400' : 'bg-blue-600'} text-white px-4 py-2 rounded hover:bg-blue-700 transition duration-300`}
+            className={`mt-4 ${loading ? 'bg-gray-400' : 'bg-blue-600'} text-white px-4 py-2 rounded hover:bg-blue-700 transition duration-300 w-full`}
+            aria-label={loading ? "Saving changes..." : "Save changes"}
           >
             {loading ? 'Saving...' : 'Save Changes'}
           </button>
           <button 
             onClick={onClose} // Close the modal instead of canceling edits
-            className="mt-2 ml-2 bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 transition duration-300"
+            className="mt-2 ml-auto bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 transition duration-300 w-full"
+            aria-label="Cancel editing"
           >
             Cancel
           </button>

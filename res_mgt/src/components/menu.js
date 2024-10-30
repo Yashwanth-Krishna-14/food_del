@@ -9,41 +9,43 @@ const Menu = ({ addToCart, removeFromCart, cart, getItemCount }) => {
   const [filter, setFilter] = useState('');
   const [sort, setSort] = useState('name');
   const [menuItems, setMenuItems] = useState([]);
-  const [loading, setLoading] = useState(true); // Loading state
-  const [error, setError] = useState(null); // Error state
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   // Fetch menu items from Firestore
   useEffect(() => {
     const fetchMenuItems = async () => {
       try {
-        setLoading(true); // Set loading to true before fetching
-        const menuCollection = collection(db, 'bq'); // Adjust according to your Firestore structure
+        setLoading(true);
+        const menuCollection = collection(db, 'bq');
         const menuSnapshot = await getDocs(menuCollection);
         const items = menuSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
         setMenuItems(items);
       } catch (err) {
         console.error("Error fetching menu items: ", err);
-        setError("Failed to load menu items."); // Set error message
+        setError("Failed to load menu items.");
       } finally {
-        setLoading(false); // Set loading to false after fetching
+        setLoading(false);
       }
     };
 
     fetchMenuItems();
   }, []);
 
+  // Filter and sort items based on user input
   const filteredItems = menuItems
-    .filter(item => item.name && item.name.toLowerCase().includes(filter.toLowerCase())) // Check if item.name exists
+    .filter(item => item.name && item.name.toLowerCase().includes(filter.trim().toLowerCase()))
     .sort((a, b) => (sort === 'name' ? a.name.localeCompare(b.name) : a.price - b.price));
 
+  // Pagination logic
   const { currentData, currentPage, totalPages, setCurrentPage } = usePagination(filteredItems, 12);
 
   if (loading) {
-    return <div className="text-center">Loading menu items...</div>; // Loading message
+    return <div className="text-center">Loading menu items...</div>;
   }
 
   if (error) {
-    return <div className="text-center text-red-500">{error}</div>; // Error message
+    return <div className="text-center text-red-500">{error}</div>;
   }
 
   return (
@@ -64,6 +66,8 @@ const Menu = ({ addToCart, removeFromCart, cart, getItemCount }) => {
         <option value="name">Sort by Name</option>
         <option value="price">Sort by Price</option>
       </select>
+
+      {/* Displaying Filtered Items */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {currentData.map(item => (
           <MenuItem
@@ -76,11 +80,13 @@ const Menu = ({ addToCart, removeFromCart, cart, getItemCount }) => {
           />
         ))}
       </div>
+
+      {/* Pagination Controls */}
       <div className="mt-4 flex justify-center">
         {Array.from({ length: totalPages }, (_, index) => (
           <Link
             key={index}
-            to={`#`}
+            to="#"
             onClick={() => setCurrentPage(index + 1)}
             className={`px-4 py-2 mx-1 border rounded ${currentPage === index + 1 ? 'bg-blue-500 text-white' : 'bg-white text-blue-500'}`}
           >
