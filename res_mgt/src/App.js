@@ -11,6 +11,7 @@ import UserProfile from './components/userProfile';
 import { auth } from './components/firebase'; // Ensure this path is correct
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 
+
 const App = () => {
   const [cart, setCart] = useState(() => {
     const savedCart = localStorage.getItem('cart');
