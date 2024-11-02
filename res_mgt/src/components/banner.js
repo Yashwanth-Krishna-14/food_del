@@ -23,9 +23,9 @@ const PromoBanner = () => {
           <button className="mt-2 bg-orange-500 text-white py-2 px-4 rounded-lg" onClick={() => navigate('/menu')}>ORDER NOW</button>
         </div>
         <div className="bg-white p-4 rounded-lg shadow-md">
-        <img src="https://www.bing.com/images/blob?bcid=S2ea6U1E8q4HqxcxoNWLuD9SqbotqVTdP4s" width="400" height="400"></img>
+        <img src="https://th.bing.com/th/id/OIP.ine78NHGbXjrUSykdLmw6gAAAA?rs=1&pid=ImgDetMain" width="400" height="auto"></img>
             
-          <h3 className="text-xl font-semibold">BK Veg Whopper</h3>
+          <h3 className="text-xl font-semibold">BK Beef Whopper</h3>
           <p className="text-green-500 font-bold">FREE</p>
           
           <h1>Bk special</h1>
